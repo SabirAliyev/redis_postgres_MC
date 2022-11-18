@@ -1,4 +1,4 @@
-package main
+package models
 
 type Name struct {
 	NConst    string `json:"nconst"`

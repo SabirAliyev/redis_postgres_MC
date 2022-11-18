@@ -5,6 +5,7 @@ import (
 	"context"
 	"encoding/gob"
 	"os"
+	"redis_postgres_MC/models"
 	"time"
 
 	"github.com/go-redis/redis/v8"
@@ -31,26 +32,26 @@ func NewRedis() (*Client, error) {
 	}, nil
 }
 
-func (c *Client) GetName(ctx context.Context, nconst string) (Name, error) {
+func (c *Client) GetName(ctx context.Context, nconst string) (models.Name, error) {
 	cmd := c.client.Get(ctx, nconst)
 
 	cmbd, err := cmd.Bytes()
 	if err != nil {
-		return Name{}, err
+		return models.Name{}, err
 	}
 
 	b := bytes.NewReader(cmbd)
 
-	var result Name
+	var result models.Name
 
 	if err := gob.NewDecoder(b).Decode(&result); err != nil {
-		return Name{}, err
+		return models.Name{}, err
 	}
 
 	return result, nil
 }
 
-func (c *Client) SetName(ctx context.Context, n Name) error {
+func (c *Client) SetName(ctx context.Context, n models.Name) error {
 	var b bytes.Buffer
 
 	if err := gob.NewEncoder(&b).Encode(n); err != nil {
