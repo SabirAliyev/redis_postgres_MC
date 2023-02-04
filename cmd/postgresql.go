@@ -29,12 +29,12 @@ func (p *PostgreSQL) Close() {
 func (p *PostgreSQL) FindByNConst(nconst string) (models.Name, error) {
 	query := `SELECT nconst, primary_name, birth_year, death_year FROM "names" WHERE nconst = $1`
 
-	var resuls models.Name
+	var res models.Name
 
 	if err := p.pool.QueryRow(context.Background(), query, nconst).
-		Scan(&resuls.NConst, &resuls.Name, &resuls.BirthYear, &resuls.DeathYear); err != nil {
+		Scan(&res.NConst, &res.Name, &res.BirthYear, &res.DeathYear); err != nil {
 		return models.Name{}, err
 	}
 
-	return resuls, nil
+	return res, nil
 }

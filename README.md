@@ -53,6 +53,7 @@ DATABASE_URL=postgres://user:password@localhost:5432/dbname?sslmode=disable \
 REDIS=localhost:6379 \
   go run .
 ```
+Where 'postgres' - database name, 'user' - postgres user name, 'password' - postgres user password, 'localhost' - the IP of the Postgres host.
 
 To GET an exist entity from CLI:
 
